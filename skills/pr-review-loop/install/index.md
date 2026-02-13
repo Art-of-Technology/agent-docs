@@ -86,12 +86,12 @@ Add this to your project's `CLAUDE.md`:
 ```markdown
 ## PR Review Workflow
 When working on PRs with Greptile reviews:
-1. After pushing, comment `@greptileai review` on the PR
+1. Create PR — Greptile reviews automatically
 2. When review arrives, run:
    bash .claude/skills/pr-review-loop/scripts/pr-review-loop.sh <repo> <pr>
 3. Fix all issues listed in the JSON output comments array
 4. Commit with descriptive message (≤50 char subject, list each fix)
-5. Push and re-trigger review
+5. Push, then comment `@greptileai review` to re-trigger
 6. Repeat until action is "merge"
 ```
 
