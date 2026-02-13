@@ -17,17 +17,27 @@ Shared skills and tools for Art of Technology development teams.
 
 ---
 
-## Quick Start
+## Install Any Skill
+
+**One command** — no need to clone anything:
+
+```bash
+# Install to current directory's skills/ folder
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop
+
+# Install directly into your agent's skill directory
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .codex/skills
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .cursor/skills
+```
+
+**Prerequisite:** [gh CLI](https://cli.github.com) authenticated (`gh auth login`).
+
+## Overview
 
 All Art-of-Technology repos have **branch protection enabled** — PRs are required, no direct pushes to main.
 
 [Greptile](https://greptile.com) automatically reviews every PR on creation.
-
-### For OpenClaw Agents
-Skills are auto-detected from the workspace `skills/` directory. Just copy the skill folder in.
-
-### For Claude Code / Codex / Cursor
-Copy the skill into your project's agent config directory and follow the install guide.
 
 ---
 

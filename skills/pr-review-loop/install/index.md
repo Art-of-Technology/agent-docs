@@ -7,19 +7,45 @@ title: Install - PR Review Loop
 
 ## Prerequisites
 
-- `gh` CLI authenticated with repo access
+- [`gh` CLI](https://cli.github.com) authenticated with repo access
 - `jq` installed
 - Branch protection enabled (already set up on all Art-of-Technology repos)
 
 ---
 
-## For OpenClaw Agents (Fully Autonomous)
+## Quick Install (All Platforms)
 
-Copy the skill into the agent's workspace:
+No need to clone anything. One command:
 
 ```bash
-# From the openclaw-team-provisioner repo
-cp -r skills/pr-review-loop ~/.openclaw/workspace/skills/
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop
+```
+
+This downloads the skill to `./skills/pr-review-loop`. Then move it where your agent expects it (see below).
+
+Or install directly to the right place:
+
+```bash
+# OpenClaw
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop ~/.openclaw/workspace/skills
+
+# Claude Code
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills
+
+# Codex
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .codex/skills
+
+# Cursor
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .cursor/skills
+```
+
+---
+
+## For OpenClaw Agents (Fully Autonomous)
+
+Install:
+```bash
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop ~/.openclaw/workspace/skills
 ```
 
 The agent auto-detects it and uses it when handling PR reviews. Add a cron job or heartbeat task to poll for reviews.
