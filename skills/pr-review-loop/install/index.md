@@ -15,28 +15,43 @@ title: Install - PR Review Loop
 
 ## Quick Install (All Platforms)
 
-No need to clone anything. One command:
+### Via ClawHub (recommended)
 
 ```bash
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop
+# First time setup (once)
+npm i -g clawhub && clawhub login
 ```
 
-This downloads the skill to `./skills/pr-review-loop`. Then move it where your agent expects it (see below).
-
-Or install directly to the right place:
+Then install for your platform:
 
 ```bash
-# OpenClaw
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop ~/.openclaw/workspace/skills
+# OpenClaw (auto-detected from workspace)
+clawhub install pr-review-loop
 
 # Claude Code
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills
+clawhub install pr-review-loop --dir .claude/skills
 
 # Codex
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .codex/skills
+clawhub install pr-review-loop --dir .codex/skills
 
 # Cursor
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .cursor/skills
+clawhub install pr-review-loop --dir .cursor/skills
+
+# Generic agents
+clawhub install pr-review-loop --dir .agents/skills
+```
+
+Update to latest version anytime:
+```bash
+clawhub update pr-review-loop
+```
+
+### Alternative: Shell script
+
+Requires [gh CLI](https://cli.github.com) authenticated:
+
+```bash
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills
 ```
 
 ---
@@ -45,7 +60,7 @@ curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-
 
 Install:
 ```bash
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop ~/.openclaw/workspace/skills
+clawhub install pr-review-loop
 ```
 
 The agent auto-detects it and uses it when handling PR reviews. Add a cron job or heartbeat task to poll for reviews.
@@ -73,10 +88,10 @@ Output is structured JSON:
 
 ## For Claude Code
 
-### Option A: Add to your project
+### Option A: Install via ClawHub
 
 ```bash
-cp -r skills/pr-review-loop .claude/skills/
+clawhub install pr-review-loop --dir .claude/skills
 ```
 
 ### Option B: Add to CLAUDE.md
@@ -100,7 +115,7 @@ When working on PRs with Greptile reviews:
 ## For Codex
 
 ```bash
-cp -r skills/pr-review-loop .codex/skills/
+clawhub install pr-review-loop --dir .codex/skills
 ```
 
 Add to your `AGENTS.md` or codex instructions the same workflow as above.
@@ -110,7 +125,7 @@ Add to your `AGENTS.md` or codex instructions the same workflow as above.
 ## For Cursor
 
 ```bash
-cp -r skills/pr-review-loop .cursor/skills/
+clawhub install pr-review-loop --dir .cursor/skills
 ```
 
 Add to `.cursorrules` or project instructions.
@@ -120,7 +135,7 @@ Add to `.cursorrules` or project instructions.
 ## For Any Other AI Tool
 
 ```bash
-cp -r skills/pr-review-loop .agents/skills/
+clawhub install pr-review-loop --dir .agents/skills
 ```
 
 The script works standalone — any tool that can run bash can use it:

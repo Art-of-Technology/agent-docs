@@ -19,19 +19,24 @@ Shared skills and tools for Art of Technology development teams.
 
 ## Install Any Skill
 
-**One command** — no need to clone anything:
+**One command** via [ClawHub](https://clawhub.com):
 
 ```bash
-# Install to current directory's skills/ folder
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop
+# First time setup (once)
+npm i -g clawhub && clawhub login
 
-# Install directly into your agent's skill directory
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .codex/skills
-curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .cursor/skills
+# Install to any agent platform
+clawhub install pr-review-loop                        # Default ./skills/
+clawhub install pr-review-loop --dir .claude/skills   # Claude Code
+clawhub install pr-review-loop --dir .codex/skills    # Codex
+clawhub install pr-review-loop --dir .cursor/skills   # Cursor
+clawhub install pr-review-loop --dir .agents/skills   # Generic agents
 ```
 
-**Prerequisite:** [gh CLI](https://cli.github.com) authenticated (`gh auth login`).
+**Alternative** — install via shell script (requires [gh CLI](https://cli.github.com)):
+```bash
+curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills
+```
 
 ## Overview
 
