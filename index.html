@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agent Skills — Art of Technology</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <nav><div class="inner">
+    <a href="./" class="logo">🤖 Agent Skills</a>
+    <div class="links">
+      <a href="./">Home</a>
+      <a href="./skills/pr-review-loop/">PR Review Loop</a>
+      <a href="https://github.com/Art-of-Technology/agent-docs">GitHub</a>
+    </div>
+  </div></nav>
+
+  <div class="hero">
+    <h1>🤖 Agent Skills</h1>
+    <p>Shared skills and tools for Art of Technology development teams.</p>
+    <div style="margin-top:28px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+      <a href="#install" class="btn btn-primary">Quick Install</a>
+      <a href="./skills/pr-review-loop/" class="btn btn-ghost">Browse Skills →</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h2>Available Skills</h2>
+    <table>
+      <thead><tr><th>Skill</th><th>Description</th><th>Status</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><a href="./skills/pr-review-loop/">PR Review Loop</a></td>
+          <td>Autonomous Greptile PR review handling</td>
+          <td><span class="badge">Available</span></td>
+        </tr>
+        <tr>
+          <td>GSD Framework</td>
+          <td>Get Stuff Done project scaffolding</td>
+          <td><span class="badge" style="background:rgba(161,161,161,.1);color:var(--text)">Coming soon</span></td>
+        </tr>
+        <tr>
+          <td>Testing Best Practices</td>
+          <td>Standardized testing patterns</td>
+          <td><span class="badge" style="background:rgba(161,161,161,.1);color:var(--text)">Coming soon</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="install">Install Any Skill</h2>
+    <p>One command via <a href="https://clawhub.com">ClawHub</a>:</p>
+    <pre><code># First time setup (once)
+npm i -g clawhub && clawhub login
+
+# Install to any agent platform
+clawhub install pr-review-loop                        # Default ./skills/
+clawhub install pr-review-loop --dir .claude/skills   # Claude Code
+clawhub install pr-review-loop --dir .codex/skills    # Codex
+clawhub install pr-review-loop --dir .cursor/skills   # Cursor
+clawhub install pr-review-loop --dir .agents/skills   # Generic agents</code></pre>
+
+    <p><strong style="color:var(--text-light)">Alternative</strong> — install via shell script (requires <a href="https://cli.github.com">gh CLI</a>):</p>
+    <pre><code>curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills</code></pre>
+
+    <hr>
+
+    <h2>Overview</h2>
+    <p>All Art-of-Technology repos have <strong style="color:var(--text-light)">branch protection enabled</strong> — PRs are required, no direct pushes to main.</p>
+    <p><a href="https://greptile.com">Greptile</a> automatically reviews every PR on creation.</p>
+
+    <footer>Maintained by the Art of Technology team</footer>
+  </div>
+</body>
+</html>

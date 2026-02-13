@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PR Review Loop — Agent Skills</title>
+  <link rel="stylesheet" href="../../styles.css">
+</head>
+<body>
+  <nav><div class="inner">
+    <a href="../../" class="logo">🤖 Agent Skills</a>
+    <div class="links">
+      <a href="../../">Home</a>
+      <a href="./">PR Review Loop</a>
+      <a href="https://github.com/Art-of-Technology/agent-docs">GitHub</a>
+    </div>
+  </div></nav>
+
+  <div class="container">
+    <div class="breadcrumb"><a href="../../">Skills</a><span>/</span>PR Review Loop</div>
+
+    <h1>PR Review Loop</h1>
+    <p>Autonomous PR review loop with <a href="https://greptile.com">Greptile</a>. Your AI agent handles code review feedback automatically — reading reviews, fixing issues, pushing fixes, re-triggering review, and auto-merging when the score hits 4/5+.</p>
+
+    <div style="margin:24px 0"><a href="./install/" class="btn btn-primary">Install Guide →</a></div>
+
+    <h2>How It Works</h2>
+    <div class="flow">Agent opens PR → Greptile auto-reviews →
+  Score ≥ 4/5 → auto-merge ✅
+  Score &lt; 4   → agent fixes issues, pushes, re-triggers @greptileai
+  5 rounds or 2 same-score rounds → force merge + notify team lead
+  Architectural concern → escalate to team lead</div>
+
+    <h2>Workflow</h2>
+
+    <h3>1. Fetch Review</h3>
+    <p>The script queries GitHub for the latest Greptile review and inline comments on your PR.</p>
+
+    <h3>2. Parse Score</h3>
+    <p>Greptile includes a confidence/quality score (X/5). The script extracts it and decides the action.</p>
+
+    <h3>3. Act on Result</h3>
+    <table>
+      <thead><tr><th>Action</th><th>Condition</th><th>What Happens</th></tr></thead>
+      <tbody>
+        <tr><td><code>merge</code></td><td>Score ≥ 4/5 or approved</td><td>Auto-merge the PR</td></tr>
+        <tr><td><code>fix</code></td><td>Score &lt; 4/5 with comments</td><td>Fix each issue, commit, push, re-trigger</td></tr>
+        <tr><td><code>force_merge</code></td><td>5 rounds or 2 at same score</td><td>Merge anyway, notify team lead</td></tr>
+      </tbody>
+    </table>
+
+    <h3>4. Fix Issues</h3>
+    <p>For each Greptile comment:</p>
+    <div class="card">
+      <ol style="padding-left:20px;display:flex;flex-direction:column;gap:8px">
+        <li>Read the file and line referenced</li>
+        <li>Understand and apply the fix</li>
+        <li>Commit with a descriptive message listing each change</li>
+        <li>Push and comment <code>@greptileai review</code> on the PR</li>
+      </ol>
+    </div>
+
+    <h2>Common Greptile Feedback</h2>
+    <table>
+      <thead><tr><th>Category</th><th>Priority</th><th>Action</th></tr></thead>
+      <tbody>
+        <tr><td>Security (XSS, injection, auth)</td><td>🔴 Critical</td><td>Fix immediately</td></tr>
+        <tr><td>Error handling</td><td>🟠 High</td><td>Fix in current round</td></tr>
+        <tr><td>Type safety</td><td>🟡 Medium</td><td>Fix in current round</td></tr>
+        <tr><td>Code quality</td><td>🟢 Low</td><td>Fix if straightforward</td></tr>
+        <tr><td>Architecture changes</td><td>⚠️ Escalate</td><td>Ping team lead, don't auto-fix</td></tr>
+      </tbody>
+    </table>
+
+    <hr>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <a href="../../" class="btn btn-ghost">← All Skills</a>
+      <a href="./install/" class="btn btn-primary">Install Guide →</a>
+    </div>
+
+    <footer>Maintained by the Art of Technology team</footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Install PR Review Loop — Agent Skills</title>
+  <link rel="stylesheet" href="../../../styles.css">
+</head>
+<body>
+  <nav><div class="inner">
+    <a href="../../../" class="logo">🤖 Agent Skills</a>
+    <div class="links">
+      <a href="../../../">Home</a>
+      <a href="../">PR Review Loop</a>
+      <a href="https://github.com/Art-of-Technology/agent-docs">GitHub</a>
+    </div>
+  </div></nav>
+
+  <div class="container">
+    <div class="breadcrumb"><a href="../../../">Skills</a><span>/</span><a href="../">PR Review Loop</a><span>/</span>Install</div>
+
+    <h1>Installing PR Review Loop</h1>
+
+    <h2>Prerequisites</h2>
+    <div class="card">
+      <ul style="padding-left:20px;display:flex;flex-direction:column;gap:6px">
+        <li><a href="https://cli.github.com"><code>gh</code> CLI</a> authenticated with repo access</li>
+        <li><code>jq</code> installed</li>
+        <li>Branch protection enabled (already set up on all Art-of-Technology repos)</li>
+      </ul>
+    </div>
+
+    <hr>
+
+    <h2>Quick Install via ClawHub</h2>
+    <p style="color:var(--text-light)">Recommended for all platforms.</p>
+
+    <pre><code># First time setup (once)
+npm i -g clawhub && clawhub login</code></pre>
+
+    <p>Then install for your platform:</p>
+    <pre><code># OpenClaw (auto-detected from workspace)
+clawhub install pr-review-loop
+
+# Claude Code
+clawhub install pr-review-loop --dir .claude/skills
+
+# Codex
+clawhub install pr-review-loop --dir .codex/skills
+
+# Cursor
+clawhub install pr-review-loop --dir .cursor/skills
+
+# Generic agents
+clawhub install pr-review-loop --dir .agents/skills</code></pre>
+
+    <p>Update to latest version anytime:</p>
+    <pre><code>clawhub update pr-review-loop</code></pre>
+
+    <hr>
+
+    <h2>OpenClaw Agents</h2>
+    <p>The agent auto-detects it and uses it when handling PR reviews. Add a cron job or heartbeat task to poll for reviews.</p>
+
+    <h3>Usage</h3>
+    <pre><code>bash skills/pr-review-loop/scripts/pr-review-loop.sh &lt;owner/repo&gt; &lt;pr-number&gt;</code></pre>
+
+    <p>Output is structured JSON:</p>
+    <pre><code>{
+  "repo": "Art-of-Technology/my-repo",
+  "pr": 42,
+  "action": "fix",
+  "score": 3,
+  "rounds": 1,
+  "commentCount": 2,
+  "comments": [...]
+}</code></pre>
+
+    <hr>
+
+    <h2>Claude Code</h2>
+
+    <h3>Option A: ClawHub</h3>
+    <pre><code>clawhub install pr-review-loop --dir .claude/skills</code></pre>
+
+    <h3>Option B: Add to CLAUDE.md</h3>
+    <p>Add this to your project's <code>CLAUDE.md</code>:</p>
+    <div class="card">
+      <pre style="margin:0;border:none"><code>## PR Review Workflow
+When working on PRs with Greptile reviews:
+1. Create PR — Greptile reviews automatically
+2. When review arrives, run:
+   bash .claude/skills/pr-review-loop/scripts/pr-review-loop.sh &lt;repo&gt; &lt;pr&gt;
+3. Fix all issues listed in the JSON output comments array
+4. Commit with descriptive message (≤50 char subject, list each fix)
+5. Push, then comment `@greptileai review` to re-trigger
+6. Repeat until action is "merge"</code></pre>
+    </div>
+
+    <hr>
+
+    <h2>Codex</h2>
+    <pre><code>clawhub install pr-review-loop --dir .codex/skills</code></pre>
+    <p>Add to your <code>AGENTS.md</code> or codex instructions the same workflow as above.</p>
+
+    <h2>Cursor</h2>
+    <pre><code>clawhub install pr-review-loop --dir .cursor/skills</code></pre>
+    <p>Add to <code>.cursorrules</code> or project instructions.</p>
+
+    <h2>Any Other AI Tool</h2>
+    <pre><code>clawhub install pr-review-loop --dir .agents/skills</code></pre>
+    <p>The script works standalone — any tool that can run bash can use it:</p>
+    <pre><code># Check a PR review
+bash path/to/pr-review-loop/scripts/pr-review-loop.sh Art-of-Technology/my-repo 42
+
+# Actions based on output:
+# "merge"       → gh pr merge 42 --merge --delete-branch
+# "fix"         → read comments, fix code, push, comment @greptileai review
+# "force_merge" → merge anyway, notify team lead</code></pre>
+
+    <hr>
+
+    <h2>Shell Script Fallback</h2>
+    <p>If you can't use ClawHub, install directly:</p>
+    <pre><code>curl -sL https://art-of-technology.github.io/agent-docs/install.sh | bash -s pr-review-loop .claude/skills</code></pre>
+
+    <hr>
+
+    <h2>Git Commit Standards</h2>
+    <p>When fixing review feedback, follow these commit standards:</p>
+    <div class="card">
+      <ul style="padding-left:20px;display:flex;flex-direction:column;gap:6px">
+        <li><strong style="color:var(--text-light)">Subject:</strong> ≤50 chars, imperative mood, no trailing period</li>
+        <li><strong style="color:var(--text-light)">Blank line</strong> between subject and body</li>
+        <li><strong style="color:var(--text-light)">Body:</strong> wrapped at 72 chars, list specific changes</li>
+        <li><strong style="color:var(--text-light)">Be specific</strong> — describe what changed, not "address feedback"</li>
+      </ul>
+    </div>
+
+    <p>Example:</p>
+    <pre><code>Fix XSS in template string escaping
+
+- Escape backticks, ${}, and newlines in buildSplashComponent
+- Add null check before path existence validation</code></pre>
+
+    <hr>
+    <div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <a href="../" class="btn btn-ghost">← PR Review Loop</a>
+      <a href="../../../" class="btn btn-ghost">← All Skills</a>
+    </div>
+
+    <footer>Maintained by the Art of Technology team</footer>
+  </div>
+</body>
+</html>
